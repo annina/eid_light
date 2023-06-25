@@ -1,0 +1,77 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+{% load socialaccount %}
+ <div class="align-to-right">
+  {% if user.is_authenticated %}
+ 	Welcome, {{user.first_name}} {{user.last_name}} <a href="/accounts/logout"> logout </a>
+ 	{%else%}
+ <a href="{% provider_login_url 'google' %}">Login with Google</a></div>
+ {% endif %}
+ </div>
+
+<div class="content">
+
+{% if user.is_authenticated %}
+
+<h2>Access your Light</h2>
+<ul><li>
+<div><a href="/light/{{id}}/{{light_string}}">click here to go to your light</a></div>
+<div class="add_right"><a href="" onclick="myFunction()">Copy URL</a></div>
+<div><input type="text" value="http://localhost:8000/light/{{id}}/{{light_string}}/" id="myInput"> <div></li></ul>
+<h2> Invite Your Friends! </h2>   
+<p>Invite your friends to light your light when they see the moon on Eid! Create a URL to share with them via email, messenger, or chat.</p>
+     <form>	
+      <label for="name">Add your friend's name here (only visible to you):</label><br>
+  		<input type="text" id="name" name="name"><br/><br/>
+  		<input type="hidden" id="id" name="id" value = "{{id}}">
+ 		<input type="submit" value="Generate a URL to share with your friend!">
+	 </form>
+	 
+	 {%if sl %}
+
+	 {%endif%}
+	 
+	 {%if friends%}
+	 
+	
+     <h2> URLs to Share with Friends </h2>
+	 <p>A URL you can send to your friend so they can light your Light on Eid <br> <a href = "">{{sl}}</a></p>
+	
+			<ul>
+		  		{% for i in friends %}
+		  		<li> <div>{{i.name}}</div><div class="add"><a href="" onclick="myFunction()">Copy URL</a></div><div class="delete"><a href="/deletefriend/{{i.id}}/{{id}}/">Delete</a></div> 
+		  		 <div><input type="text" value="http://localhost:8000/friend/{{id}}/{{i.ident}}" id="myInput"> <div></li>
+		  		
+		  		{% endfor %}
+		  </ul>
+	{% else %}
+				<p>	No URLs to share yet!</p>
+	{% endif %}  
+	
+
+			
+    
+    
+    <h1> &nbsp; <br/></h1>	
+ </div>
+{% endif %}  
+ <!-- https://www.w3schools.com/howto/howto_js_copy_clipboard.asp -->
+<script>
+function myFunction() {
+  // Get the text field
+  var copyText = document.getElementById("myInput");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+  
+  // Alert the copied text
+  alert("Copied the text: " + copyText.value);
+}
+</script>
+{% endblock %}	

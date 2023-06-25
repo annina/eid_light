@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+ {% load socialaccount %}
+ <div class="align-to-right">
+  {% if user.is_authenticated %}
+ 	Welcome, {{user.first_name}} {{user.last_name}} <a href="http://localhost:8000/accounts/logout"> logout </a>
+ 	{%else%}
+ <a href="{% provider_login_url 'google' %}">Login with Google</a></div>
+ {% endif %}
+ </div>
+<div class="content">
+      
+
+     {% if not on %}
+      <h2>Hello!</h2>
+    Light your friend's Eid Light when you've seen the moon on Eid! <br>
+         <form >		
+  			<input type="hidden" id="on" name="on" value = "1"><br><br>
+ 		<input type="submit" value="Light!">
+	 </form>
+	 
+	 
+	{%else%}
+
+	<h2>Happy Eid & Thank You!</h2>
+		 
+	
+ {% endif %}
+ 
+</div>
+    {% endblock %}	
+    

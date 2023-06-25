@@ -1,0 +1,50 @@
+
+	
+{% extends "base.html" %}
+{% block content %}
+{% load socialaccount %}
+
+
+<div class="content">
+
+
+
+{% if user.is_authenticated %}
+ 
+	   	
+
+
+       
+    
+<h1> Create a Light <h1>
+	
+<form action="/createlight/" method="GET">
+  <label for="lightname">Your light name or identifier:</label><br>
+  <input type="text" id="lightname" name="lightname" ><br>
+  <label for="lname">Make this light public? </label>
+  <input type="checkbox" id="public" name="public"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+ 
+<h1> Your Lights</h2>
+
+
+	{% for l in lights %} 
+	
+	<p><a href="http://localhost:8000/addfriends/{{l.id}}/{{l.ident}}"> {{l.name}}</a> </p>
+       
+    {% endfor %} 	
+    
+ {% else %}
+    
+    <h1>Login to create your Eid Light</h1>
+    <p><a href="{% provider_login_url 'google' %}">Login with Google</a></p>
+    
+    {% endif %}	
+ </div>
+    {% endblock %}	
+
+    
+ 
+
+    

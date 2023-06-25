@@ -1,0 +1,64 @@
+
+
+   
+
+	
+{% extends "base.html" %}
+{% block content %}
+{% load socialaccount %}
+ <div class="align-to-right">
+  {% if user.is_authenticated %}
+ 	Welcome, {{user.first_name}} {{user.last_name}} <a href="http://localhost:8000/accounts/logout"> logout </a>
+ 	{%else%}
+ <a href="{% provider_login_url 'google' %}">Login with Google</a></div>
+ {% endif %}
+ </div>
+
+<div class="content">
+
+
+
+{% if user.is_authenticated %}
+ 
+	
+<h1> Create a Light <h1>
+	
+<p><form action="/createlight/{{user.id}}/" method="GET">
+  <label for="lightname">Your light name or identifier:</label>
+  <input type="text" id="lightname" name="lightname" >
+  <label for="lname">Make this light public? </label>
+  <input type="checkbox" id="public" name="public" class="box">
+  <input type="submit" value="Submit">
+</form> </p>
+	
+{%if lights%}
+ 
+<h1> Your Lights</h1>
+<ul>
+  
+
+	{% for l in lights %} 
+	
+
+	
+	<li>
+    <div>	<a href="/addfriends/{{l.id}}/{{l.ident}}"> {{l.name}}</a></div><div class="add"><a href="/addfriends/{{l.id}}/{{l.ident}}">Add Friends</a></div></a>
+<div class="delete"><a href="/deletelight/{{user.id}}/{{l.id}}/">Delete</a></div></a>
+  </li>
+       
+    {% endfor %} 
+</ul>
+
+{%endif%} 
+ {% else %}
+    
+    <h1>Login to create your Eid Light</h1>
+    <p><a href="{% provider_login_url 'google' %}">Login with Google</a></p>
+    
+    {% endif %}
+    
+    <h1> &nbsp;</h1>	
+ </div>
+    {% endblock %}	
+
+

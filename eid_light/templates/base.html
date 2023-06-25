@@ -1,0 +1,273 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}{% endblock %}</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+body {
+ margin: 0;
+ font-family: Arial, Helvetica, sans-serif;
+ background-color: #171971;
+ color:#fff;
+ font-size:3vw;
+ /*text-align: justify;*/
+
+ }
+
+.banner {
+  padding-top:1vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+
+}
+
+
+.top_pic {
+ overflow: hidden;
+ height:300px;
+ background: rgb(255,168,46);
+ background: linear-gradient(180deg, rgba(255,168,46,1) 1%, rgba(253,29,29,1) 10%, rgba(50,10,220,1) 100%); 
+ 
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #320adc;
+
+}
+
+/* Style the topnav links */
+.topnav a {
+
+  float: left;
+  
+  color: #ffffff;
+  padding: 14px 20px;
+  text-decoration: none;
+ 
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #171971;
+  color: #ffff00;
+ 
+}
+
+
+/* Style the content */
+.content {
+  padding-top: 30px;
+  left: 15vw;/* IMPORTANT */
+  right:15vw;
+  display: block;
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+  font-size: 3vw;
+  
+}
+
+input[type=text], select {
+  width: 100%;
+
+  
+}
+
+input {
+  height: 4vw; 
+  font-size: 3vw;
+  border: 1px solid #FFFF00;
+  border-radius: 4px;
+
+}
+
+.box {
+ height: 4vw;
+ width: 4vw;
+ margin-top: 1vw;
+}
+
+.content label {
+font-size: 3vw;
+font-weight: normal;
+margin-top:0;
+
+}
+
+input[type=submit] {
+  width: 100%;
+  height: 4vw;
+  background-color: #22e376;
+  color: white;
+  border: none;
+  border-radius: 4px;
+
+}
+
+input[type=submit]:hover {
+  color: black;
+  background-color:  #ffff00;
+
+}
+
+
+h1 {
+ font-size: 4vw;
+ margin: 0;
+ padding-top:2px;
+ padding-bottom:2px;
+}
+/* Style the footer */
+.footer {
+ 
+  /*padding: 10px;*/
+
+  padding-top:4px;
+  position: fixed;
+  text-align:center;
+  color: white;
+  font-size: 3vw;
+
+  bottom: 0;
+	width: 100%;
+            /* Height of the footer*/
+            height: 40px;
+            background: #320adc;
+}
+
+.footer a {
+	color: white;
+	
+}
+
+.footer a: {
+	color: white;
+	text-decoration: none;
+}
+
+.align-to-right {
+  text-align: right;
+  padding-right: 5vw;
+  font-size: 2vw;
+}
+
+.align-to-right a {
+ 	color: hotpink;
+}
+
+ul {
+  
+  padding-left: 0;
+  list-style-type: none;
+}
+
+li {
+  position: relative;
+  padding: 10px;
+  margin-bottom: 2px;
+  background-color: #1e218f;
+}
+
+li input {
+ 
+
+  margin-top:10px;
+  
+}
+
+.delete {
+  position: absolute;
+  top: 6px;
+  right: 1vw;
+  padding: 4px 10px;
+  background-color: hotpink;
+  cursor: pointer;
+}
+
+.add {
+  position: absolute;
+  top: 6px;
+  right: 13vw;
+  padding: 4px 10px;
+  background-color: #22e376;
+  cursor: pointer;
+}
+
+.add_right {
+  position: absolute;
+  top: 6px;
+  right: 1vw;
+  padding: 4px 10px;
+  background-color: #22e376;
+  cursor: pointer;
+}
+
+li a {
+ color: white;
+ text-decoration: none;
+}
+
+li a:hover {
+ color: #ffff00;
+ text-decoration: underline;
+}
+
+
+</style>
+
+
+    
+    {% block extra_head %}
+    {% endblock %}
+ 	 </head>
+  	<body>
+  {% load static %}
+
+  
+    {% block body %}
+<div class="top_pic">
+
+<img src="{% static 'eid_light_logo.png' %}" class ="banner" >
+
+</div>
+
+<div class="topnav">
+  <a href="/">Intro</a>
+  <a href="/createlight/{%if user.id%}{{user.id}}/{%else%}0/{%endif%}">Create a Light</a>
+  <a href="/yourlights/{%if user.id%}{{user.id}}/{%else%}0/{%endif%}">Your Lights</a>
+  <a href="/public/">Public Lights</a>
+
+  
+</div>
+
+
+    {% block content %}
+         
+    {% endblock %}
+    
+    {% endblock %}
+     
+    {% block extra_body %}
+    {% endblock %}
+ 
+<div class="footer">
+  <a href="/privacy/">Privacy</a> |   <a href="/tutorial/">Help</a>
+</div>
+
+  </body>
+</html>

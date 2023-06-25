@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+      <title>Eid Light! </title>
+       <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+       <script src="https://p5play.org/v3/p5play.js"></script>
+	   <script src="https://p5play.org/v3/planck.min.js"></script>
+       
+       
+       
+	   <script language="javascript"">
+
+{%load static%}
+
+let url = 'http://localhost:8000/jsonResponse/{{id}}/{{characters}}';
+
+function preload(){
+  
+   loadJSON(url, processJSON);
+}
+
+
+let friends;
+let friends1;
+let dots;
+let walls;
+
+function setup() {
+  createCanvas(1400, 900);
+  background(23,25,113);
+  setInterval(downloadJSON, 2000);
+ 
+
+  
+  	let newColor = color(0, 0, 0);
+  	newColor.setAlpha(0);
+ 
+	 walls = new Group();
+
+	 let w1 = new walls.Sprite(1400,450,5,900);
+	 w1.collider = 'static';
+	 w1.color = newColor;
+	 w1.stroke = newColor;
+	 
+	 
+	 let w2 = new walls.Sprite(0,450,5,900);
+	  w2.collider = 'static';
+	  w2.color = newColor;
+	   w2.stroke = newColor;
+	  
+	 let w3 = new walls.Sprite(700,900,1400,5);
+	  w3.collider = 'static';
+	  w3.color = newColor;
+	  w3.stroke = newColor;
+	
+	 let w4 = new walls.Sprite(702,0,1400,5);
+	 w4.collider = 'static';
+	 w4.color= newColor;
+	 w4.stroke = newColor;
+	
+	 walls.add(w1);
+	 walls.add(w2);
+	 walls.add(w3);
+	 walls.add(w4);
+	 
+
+    dots = new Group();
+	dots.color = 'white';
+	dots.stroke ='white';
+	
+ 
+	
+	while (dots.length < 400) {
+		let dot1 = new dots.Sprite();
+		dot1.x = int(random(width));
+		dot1.y =int(random(height));
+		dot1.diameter = int(random(1,5));
+		dot1.vel.x = random(-0.1, 0.1);
+		dot1.vel.y = random(-0.1, 0.1);
+		dot1.bounciness = 1;
+ 	}
+ 	
+ friends1 = new Group();
+ 
+ for (let i =0; i< friends.length; i++){
+	
+	let friend = new friends1.Sprite();
+	if(friends[i]['fields']['on'] == true){
+   			 friend.text = friends[i]['fields']['name'];
+   		   	 friend.img = '{% static 'light.png' %}';
+   			
+   			
+   			
+
+	   	    } else {
+	   	    
+	   	    friend.text = friends[i]['fields']['name'];
+   		   	 friend.color = 'black';
+   		   	 friend.textColor = 'white';
+   		   	 
+	   	    
+	   	    
+	   	    
+	   	    }
+	   	    
+	   	    friend.diameter = 50;
+	   	    friend.x = int(random(100,1000));
+			friend.y = int(random(100,900));
+	   	    friend.vel.x = random(-0.1, 0.1);
+			friend.vel.y = random(-0.1, 0.1);
+			friend.bounciness = 1;
+			friend.rotation = 0;
+			
+		
+}
+
+ 	
+ 
+ 
+  
+}
+
+
+let x = 3;
+
+function draw() {
+ 	
+ 	
+ 	clear();
+ 	
+ 	background(23,25,113);
+ 	
+
+	
+	
+	
+}
+
+function downloadJSON(){   
+  loadJSON(url, processJSON);
+}
+
+function processJSON(jstring){
+   
+   console.log(jstring);
+   friends = JSON.parse(jstring);
+
+   	
+  
+
+   
+   
+   
+}
+</script>
+
+      
+  <!-- This line removes any default padding and style. 
+       You might only need one of these values set. -->
+  <style> 
+  
+  canvas
+{
+    width: 90vw; /* 90% of viewport vidth */
+    height: 50.625vw; /* ratio = 9/16 * 90 = 50.625 */
+    background: pink;
+    max-height: 90vh;
+    max-width: 160vh; /* 16/9 * 90 = 160 */
+    margin: auto;
+    position: absolute;
+    top:0;bottom:0;
+    left:0;right:0;
+    
+    
+    
+} 
+
+
+
+</style>
+
+</head>
+
+<body bgcolor="#171971">
+
+  
+  
+
+</body>
+</html>
+  
+    	
+ 
+   
+</html>
+    

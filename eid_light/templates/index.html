@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+ {% load socialaccount %}
+ <div class="align-to-right">
+  {% if user.is_authenticated %}
+ 	Welcome, {{user.first_name}} {{user.last_name}} <a href="http://localhost:8000/accounts/logout"> logout </a>
+ 	{%else%}
+ <a href="{% provider_login_url 'google' %}">Login with Google</a></div>
+ {% endif %}
+ </div>
+<div class="content">
+
+	  
+    <h1>Let's Celebrate Eid Together!</h1>
+	 <p><p>A Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+</div> 
+    
+    {% endblock %}	
+    
+ 
+
+    

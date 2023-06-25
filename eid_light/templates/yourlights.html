@@ -1,0 +1,58 @@
+
+
+   
+
+	
+{% extends "base.html" %}
+{% block content %}
+{% load socialaccount %}
+ <div class="align-to-right">
+  {% if user.is_authenticated %}
+ 	Welcome, {{user.first_name}} {{user.last_name}} <a href="http://localhost:8000/accounts/logout"> logout </a>
+ 	{%else%}
+ <a href="{% provider_login_url 'google' %}">Login with Google</a></div>
+ {% endif %}
+ </div>
+
+<div class="content">
+
+
+
+{% if user.is_authenticated %}
+ 
+
+	
+{%if lights%}
+ 
+<h2> Your Lights</h2>
+<ul>
+  
+
+	{% for l in lights %} 
+	
+
+	
+	<li>
+   <div>	<a href="/addfriends/{{l.id}}/{{l.ident}}"> {{l.name}}</a></div><div class="add"><a href="/addfriends/{{l.id}}/{{l.ident}}">Add Friends</a></div></a>
+<div class="delete"><a href="/deletelight/{{user.id}}/{{l.id}}/">Delete</a></div></a>
+  </li>
+       
+    {% endfor %} 
+</ul>
+{%else %}
+
+You do not have an Eid Light yet. You can create one <a href="/createlight/{%if user.id%}{{user.id}}/{%else%}0/{%endif%}">here</a>. 
+
+{%endif%} 
+
+
+ {% else %}
+    
+    <h1>Login to view or create your Eid Lights</h1>
+    <p><a href="{% provider_login_url 'google' %}">Login with Google</a></p>
+    
+    {% endif %}	
+ </div>
+    {% endblock %}	
+
+
