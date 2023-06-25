@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import secrets
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,22 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-d^=^b#x@r7mzdqe)ocrfb0xs1ulfv%gdyt$nok4zkdf$(n+)xi'
-SECRET_KEY = os.environ.get(
-	"DJANGO_SECRET_KEY",
-	default=secrets.token_urlsafe(nbytes=64),
-)
+SECRET_KEY = 'django-insecure-d^=^b#x@r7mzdqe)ocrfb0xs1ulfv%gdyt$nok4zkdf$(n+)xi'
 
-IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-if not IS_HEROKU_APP:
-    DEBUG = True
+ALLOWED_HOSTS = []
 
-
-if IS_HEROKU_APP:
-	ALLOWED_HOSTS = ["*"]
-else:
-	ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -96,30 +86,12 @@ WSGI_APPLICATION = 'eid_light.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if IS_HEROKU_APP:
-	# In production on Heroku the database configuration is derived from the `DATABASE_URL`
-	# environment variable by the dj-database-url package. `DATABASE_URL` will be set
-	# automatically by Heroku when a database addon is attached to your Heroku app. See:
-	# https://devcenter.heroku.com/articles/provisioning-heroku-postgres
-	# https://github.com/jazzband/dj-database-url
-	DATABASES = {
-		"default": dj_database_url.config(
-            		conn_max_age=600,
-            		conn_health_checks=True,
-            		ssl_require=True,
-        	),
-	}
-else:
-	# When running locally in development or in CI, a sqlite database file will be used instead
-	# to simplify initial setup. Longer term it's recommended to use Postgres locally too.
-	DATABASES = {
-		"default": {
-			"ENGINE": "django.db.backends.sqlite3",
-			"NAME": BASE_DIR / "db.sqlite3",
-		}
-	}
-
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
@@ -213,3 +185,7 @@ ACCOUNT_LOGOUT_ON_GET= True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 
+
+# Configure Django App for Heroku.
+import django_on_heroku
+django_on_heroku.settings(locals())
